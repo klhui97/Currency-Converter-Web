@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Currency Converter</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <v-container grid-list-md text-xs-center>
+                <v-layout row wrap>
+                    <v-flex xs12 md4>
+                        <v-text-field label="Amount"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 md4>
+                        <v-autocomplete v-model="fromCurrency" :items="getCurrencyList()" :label="`From Currency`"
+                            persistent-hint>
+                            <v-slide-x-reverse-transition slot="append-outer" mode="out-in">
+                            </v-slide-x-reverse-transition>
+                        </v-autocomplete>
+                    </v-flex>
+                    <v-flex xs12 md4>
+                        <v-autocomplete v-model="toCurrency" :items="getCurrencyList()" :label="`To Currency`"
+                            persistent-hint>
+                            <v-slide-x-reverse-transition slot="append-outer" mode="out-in">
+                            </v-slide-x-reverse-transition>
+                        </v-autocomplete>
+                    </v-flex>
+                </v-layout>
+                <v-layout>
+                    <v-flex xs12>
+                        <v-data-table :headers="headers" :items="currency" hide-actions class="elevation-1">
+                            <template slot="items" slot-scope="props">
+                                <td class="text-xs-center">{{ props.item.type }}</td>
+                                <td class="text-xs-center">{{ props.item.value }}</td>
+                            </template>
+                        </v-data-table>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
