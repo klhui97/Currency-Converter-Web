@@ -203,6 +203,12 @@ var main = new Vue({
                     width: '10%'
                 }
             ],
+            rules: {
+                number: value => {
+                    console.log(typeof(value))
+                    return !isNaN(value) || 'Input must be a number'
+                }
+            },
             rowControl: [5, 10, 20],
             isEditing: false,
             fromCurrency: null,

@@ -12,9 +12,12 @@
     <div id="mainApp">
         <v-app>
             <v-container grid-list-md text-xs-center>
+
+                <!-- input -->
                 <v-layout row wrap>
                     <v-flex xs12 md4>
-                        <v-text-field label="Amount"></v-text-field>
+                        <v-text-field label="Amount" :rules="[rules.number]">
+                        </v-text-field>
                     </v-flex>
                     <v-flex xs12 md4>
                         <v-autocomplete v-model="fromCurrency" :items="getCurrencyList()" :label="`From Currency`" persistent-hint>
@@ -29,6 +32,8 @@
                         </v-autocomplete>
                     </v-flex>
                 </v-layout>
+
+                <!-- Table -->
                 <v-layout>
                     <v-flex xs12>
                         <v-data-table :headers="headers" :items="getCurrencyList()" :rows-per-page-items="rowControl" class="elevation-1">
