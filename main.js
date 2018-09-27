@@ -7,218 +7,29 @@ new Vue({
                     text: 'Currency',
                     align: 'center',
                     sortable: false,
-                    value: 'type'
+                    value: 'type',
+                    width: '30%'
                 },
                 { 
                     text: 'Amount', 
                     align: 'center',
+                    sortable: false,
                     value: 'value',
+                    width: '60%'
+                },
+                { 
+                    text: 'Move to bottom', 
+                    align: 'center',
+                    sortable: false,
+                    value: 'value',
+                    width: '10%'
                 }
             ],
-            desserts: [
-                {
-                    value: false,
-                    name: 'Frozen Yogurt',
-                    calories: 159,
-                    fat: 6.0,
-                    carbs: 24,
-                    protein: 4.0,
-                    iron: '1%'
-                },
-                {
-                    value: false,
-                    name: 'Ice cream sandwich',
-                    calories: 237,
-                    fat: 9.0,
-                    carbs: 37,
-                    protein: 4.3,
-                    iron: '1%'
-                },
-                {
-                    value: false,
-                    name: 'Eclair',
-                    calories: 262,
-                    fat: 16.0,
-                    carbs: 23,
-                    protein: 6.0,
-                    iron: '7%'
-                },
-                {
-                    value: false,
-                    name: 'Cupcake',
-                    calories: 305,
-                    fat: 3.7,
-                    carbs: 67,
-                    protein: 4.3,
-                    iron: '8%'
-                },
-                {
-                    value: false,
-                    name: 'Gingerbread',
-                    calories: 356,
-                    fat: 16.0,
-                    carbs: 49,
-                    protein: 3.9,
-                    iron: '16%'
-                },
-                {
-                    value: false,
-                    name: 'Jelly bean',
-                    calories: 375,
-                    fat: 0.0,
-                    carbs: 94,
-                    protein: 0.0,
-                    iron: '0%'
-                },
-                {
-                    value: false,
-                    name: 'Lollipop',
-                    calories: 392,
-                    fat: 0.2,
-                    carbs: 98,
-                    protein: 0,
-                    iron: '2%'
-                },
-                {
-                    value: false,
-                    name: 'Honeycomb',
-                    calories: 408,
-                    fat: 3.2,
-                    carbs: 87,
-                    protein: 6.5,
-                    iron: '45%'
-                },
-                {
-                    value: false,
-                    name: 'Donut',
-                    calories: 452,
-                    fat: 25.0,
-                    carbs: 51,
-                    protein: 4.9,
-                    iron: '22%'
-                },
-                {
-                    value: false,
-                    name: 'KitKat',
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                    iron: '6%'
-                },
-                {
-                    value: false,
-                    name: 'Gingerbread',
-                    calories: 356,
-                    fat: 16.0,
-                    carbs: 49,
-                    protein: 3.9,
-                    iron: '16%'
-                },
-                {
-                    value: false,
-                    name: 'Jelly bean',
-                    calories: 375,
-                    fat: 0.0,
-                    carbs: 94,
-                    protein: 0.0,
-                    iron: '0%'
-                },
-                {
-                    value: false,
-                    name: 'Lollipop',
-                    calories: 392,
-                    fat: 0.2,
-                    carbs: 98,
-                    protein: 0,
-                    iron: '2%'
-                },
-                {
-                    value: false,
-                    name: 'Honeycomb',
-                    calories: 408,
-                    fat: 3.2,
-                    carbs: 87,
-                    protein: 6.5,
-                    iron: '45%'
-                },
-                {
-                    value: false,
-                    name: 'Donut',
-                    calories: 452,
-                    fat: 25.0,
-                    carbs: 51,
-                    protein: 4.9,
-                    iron: '22%'
-                },
-                {
-                    value: false,
-                    name: 'KitKat',
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                    iron: '6%'
-                },
-                {
-                    value: false,
-                    name: 'Gingerbread',
-                    calories: 356,
-                    fat: 16.0,
-                    carbs: 49,
-                    protein: 3.9,
-                    iron: '16%'
-                },
-                {
-                    value: false,
-                    name: 'Jelly bean',
-                    calories: 375,
-                    fat: 0.0,
-                    carbs: 94,
-                    protein: 0.0,
-                    iron: '0%'
-                },
-                {
-                    value: false,
-                    name: 'Lollipop',
-                    calories: 392,
-                    fat: 0.2,
-                    carbs: 98,
-                    protein: 0,
-                    iron: '2%'
-                },
-                {
-                    value: false,
-                    name: 'Honeycomb',
-                    calories: 408,
-                    fat: 3.2,
-                    carbs: 87,
-                    protein: 6.5,
-                    iron: '45%'
-                },
-                {
-                    value: false,
-                    name: 'Donut',
-                    calories: 452,
-                    fat: 25.0,
-                    carbs: 51,
-                    protein: 4.9,
-                    iron: '22%'
-                },
-                {
-                    value: false,
-                    name: 'KitKat',
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                    iron: '6%'
-                }
-            ],
+            rowControl: [5, 10, 20],
             isEditing: false,
             fromCurrency: null,
             toCurrency: null,
-            currency: [
+            allCurrency: [
                 {
                     'type': 'AED',
                     'value': 4.321734
@@ -892,18 +703,32 @@ new Vue({
                     'value': 379.274655
                 }
             ],
+            lastUpdate: "2018-10-2 10:50:20",
             currencyType: []
         }
     },
     methods: {
         getCurrencyList: function () {
+            maxDisplay = 5;
             if (this.$data.currencyType.length > 0) {
                 return this.$data.currencyType
             }
-            for (i in this.$data.currency) {
-                this.$data.currencyType.push(this.$data.currency[i].type)
+            for (i in this.$data.allCurrency) {
+                if (i >= maxDisplay) {
+                    break
+                }
+                this.$data.currencyType.push(this.$data.allCurrency[i].type)
             }
             return this.$data.currencyType
+        },
+        getDisplayCurrency: function () {
+            curreny = []
+
+            for (i in this.$data.allCurrency) {
+                curreny.push(this.$data.allCurrency[i])
+            }
+
+            return curreny
         }
     }
 })
