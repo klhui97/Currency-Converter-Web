@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="mainApp">
         <v-app>
             <v-container grid-list-md text-xs-center>
                 <v-layout row wrap>
@@ -31,19 +31,19 @@
                 </v-layout>
                 <v-layout>
                     <v-flex xs12>
-                        <v-data-table :headers="headers" :items="getDisplayCurrency()" :rows-per-page-items="rowControl" class="elevation-1">
+                        <v-data-table :headers="headers" :items="getCurrencyList()" :rows-per-page-items="rowControl" class="elevation-1">
                             <template slot="footer">
                                 <td colspan="3" class="text-xs-right light-blue white--text">
                                     <span class="subheading">
-                                        last update: {{ lastUpdate }}
+                                        Last update: {{ lastUpdate }}
                                     </span>
                                 </td>
                             </template>
                             <template slot="items" slot-scope="props">
-                                <td class="text-xs-center">{{ props.item.type }}</td>
-                                <td class="text-xs-center">{{ props.item.value }}</td>
+                                <td class="text-xs-center">{{ props.item }}</td>
+                                <td class="text-xs-center">{{ getRate(props.item) }}</td>
                                 <td class="text-xs-center">
-                                    <v-icon small @click="deleteItem(props.item)">
+                                    <v-icon small @click="moveItemToEnd(props.item)">
                                         visibility_off
                                     </v-icon>
                                 </td>
@@ -61,6 +61,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="main.js"></script>
 </body>
 

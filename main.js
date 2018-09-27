@@ -1,5 +1,183 @@
-new Vue({
-    el: '#app',
+var dataApp = new Vue({
+    data() {
+        return {
+            currencyList: ["AED", "AFN", "ALL", "AMD", "ANG", "AOA", "ARS", "AUD", "AWG", "AZN", "BAM", "BBD", "BDT", "BGN", "BHD", "BIF", "BMD", "BND", "BOB", "BRL", "BSD", "BTC", "BTN", "BWP", "BYN", "BYR", "BZD", "CAD", "CDF", "CHF", "CLF", "CLP", "CNY", "COP", "CRC", "CUC", "CUP", "CVE", "CZK", "DJF", "DKK", "DOP", "DZD", "EGP", "ERN", "ETB", "EUR", "FJD", "FKP", "GBP", "GEL", "GGP", "GHS", "GIP", "GMD", "GNF", "GTQ", "GYD", "HKD", "HNL", "HRK", "HTG", "HUF", "IDR", "ILS", "IMP", "INR", "IQD", "IRR", "ISK", "JEP", "JMD", "JOD", "JPY", "KES", "KGS", "KHR", "KMF", "KPW", "KRW", "KWD", "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LSL", "LTL", "LVL", "LYD", "MAD", "MDL", "MGA", "MKD", "MMK", "MNT", "MOP", "MRO", "MUR", "MVR", "MWK", "MXN", "MYR", "MZN", "NAD", "NGN", "NIO", "NOK", "NPR", "NZD", "OMR", "PAB", "PEN", "PGK", "PHP", "PKR", "PLN", "PYG", "QAR", "RON", "RSD", "RUB", "RWF", "SAR", "SBD", "SCR", "SDG", "SEK", "SGD", "SHP", "SLL", "SOS", "SRD", "STD", "SVC", "SYP", "SZL", "THB", "TJS", "TMT", "TND", "TOP", "TRY", "TTD", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "VUV", "WST", "XAF", "XAG", "XAU", "XCD", "XDR", "XOF", "XPF", "YER", "ZAR", "ZMK", "ZMW", "ZWL"],
+            rates: {
+                "AED": 4.304061,
+                "AFN": 88.96846,
+                "ALL": 126.257273,
+                "AMD": 564.367579,
+                "ANG": 2.162547,
+                "AOA": 339.450911,
+                "ARS": 45.143688,
+                "AUD": 1.620489,
+                "AWG": 2.109173,
+                "AZN": 1.994924,
+                "BAM": 1.950867,
+                "BBD": 2.346045,
+                "BDT": 98.503044,
+                "BGN": 1.956141,
+                "BHD": 0.441772,
+                "BIF": 2077.47696,
+                "BMD": 1.171763,
+                "BND": 1.61411,
+                "BOB": 8.099166,
+                "BRL": 4.72478,
+                "BSD": 1.171939,
+                "BTC": 0.000182,
+                "BTN": 85.161245,
+                "BWP": 12.437673,
+                "BYN": 2.462635,
+                "BYR": 22966.552029,
+                "BZD": 2.355823,
+                "CAD": 1.530223,
+                "CDF": 1905.286611,
+                "CHF": 1.135819,
+                "CLF": 0.026483,
+                "CLP": 776.879092,
+                "CNY": 8.059974,
+                "COP": 3515.054223,
+                "CRC": 679.118204,
+                "CUC": 1.171763,
+                "CUP": 31.051716,
+                "CVE": 110.008022,
+                "CZK": 25.709663,
+                "DJF": 208.245465,
+                "DKK": 7.458392,
+                "DOP": 58.40649,
+                "DZD": 138.031343,
+                "EGP": 21.030448,
+                "ERN": 17.576473,
+                "ETB": 32.762215,
+                "EUR": 1,
+                "FJD": 2.474236,
+                "FKP": 0.890611,
+                "GBP": 0.893077,
+                "GEL": 3.064182,
+                "GGP": 0.893209,
+                "GHS": 5.597868,
+                "GIP": 0.890493,
+                "GMD": 57.586279,
+                "GNF": 10602.754841,
+                "GTQ": 9.0398,
+                "GYD": 245.033225,
+                "HKD": 9.157315,
+                "HNL": 28.173872,
+                "HRK": 7.428157,
+                "HTG": 81.734558,
+                "HUF": 323.446977,
+                "IDR": 17478.014799,
+                "ILS": 4.21742,
+                "IMP": 0.893209,
+                "INR": 85.075824,
+                "IQD": 1398.55756,
+                "IRR": 49337.075038,
+                "ISK": 129.126233,
+                "JEP": 0.893209,
+                "JMD": 160.01581,
+                "JOD": 0.831367,
+                "JPY": 132.096931,
+                "KES": 118.348307,
+                "KGS": 80.91031,
+                "KHR": 4786.475176,
+                "KMF": 490.822191,
+                "KPW": 1054.623299,
+                "KRW": 1302.88894,
+                "KWD": 0.354811,
+                "KYD": 0.976823,
+                "KZT": 422.514142,
+                "LAK": 9987.981415,
+                "LBP": 1777.505415,
+                "LKR": 198.216085,
+                "LRD": 181.91643,
+                "LSL": 16.703505,
+                "LTL": 3.459911,
+                "LVL": 0.708788,
+                "LYD": 1.613871,
+                "MAD": 10.988851,
+                "MDL": 19.772911,
+                "MGA": 4005.612459,
+                "MKD": 61.593741,
+                "MMK": 1869.4275,
+                "MNT": 2960.370746,
+                "MOP": 9.43146,
+                "MRO": 418.319354,
+                "MUR": 40.132818,
+                "MVR": 18.045055,
+                "MWK": 852.140491,
+                "MXN": 22.163531,
+                "MYR": 4.851447,
+                "MZN": 71.249066,
+                "NAD": 16.797199,
+                "NGN": 426.650641,
+                "NIO": 37.520437,
+                "NOK": 9.520608,
+                "NPR": 136.035829,
+                "NZD": 1.764438,
+                "OMR": 0.451105,
+                "PAB": 1.171939,
+                "PEN": 3.870447,
+                "PGK": 3.896639,
+                "PHP": 63.538823,
+                "PKR": 144.384754,
+                "PLN": 4.277884,
+                "PYG": 6909.421189,
+                "QAR": 4.266356,
+                "RON": 4.661483,
+                "RSD": 118.453499,
+                "RUB": 77.146544,
+                "RWF": 1033.623735,
+                "SAR": 4.394052,
+                "SBD": 9.348791,
+                "SCR": 15.941246,
+                "SDG": 21.097003,
+                "SEK": 10.336531,
+                "SGD": 1.599491,
+                "SHP": 1.547782,
+                "SLL": 9842.807719,
+                "SOS": 676.690038,
+                "SRD": 8.73898,
+                "STD": 24500.647487,
+                "SVC": 10.25603,
+                "SYP": 603.458224,
+                "SZL": 16.749157,
+                "THB": 37.975079,
+                "TJS": 11.035136,
+                "TMT": 4.10117,
+                "TND": 3.266049,
+                "TOP": 2.659196,
+                "TRY": 7.124962,
+                "TTD": 7.899732,
+                "TWD": 35.780983,
+                "TZS": 2675.249631,
+                "UAH": 32.994465,
+                "UGX": 4480.2943,
+                "USD": 1.171763,
+                "UYU": 38.25106,
+                "UZS": 9468.780515,
+                "VEF": 291206.446956,
+                "VND": 27357.733342,
+                "VUV": 132.088658,
+                "WST": 3.050803,
+                "XAF": 654.359515,
+                "XAG": 0.081302,
+                "XAU": 0.000979,
+                "XCD": 3.166747,
+                "XDR": 0.835915,
+                "XOF": 654.359496,
+                "XPF": 118.957269,
+                "YER": 293.351219,
+                "ZAR": 16.587422,
+                "ZMK": 10547.272636,
+                "ZMW": 14.152586,
+                "ZWL": 377.723629
+            }
+        }
+    }
+})
+
+var main = new Vue({
+    el: '#mainApp',
     data() {
         return {
             headers: [
@@ -10,15 +188,15 @@ new Vue({
                     value: 'type',
                     width: '30%'
                 },
-                { 
-                    text: 'Amount', 
+                {
+                    text: 'Amount',
                     align: 'center',
                     sortable: false,
                     value: 'value',
                     width: '60%'
                 },
-                { 
-                    text: 'Move to bottom', 
+                {
+                    text: 'Move to bottom',
                     align: 'center',
                     sortable: false,
                     value: 'value',
@@ -29,706 +207,38 @@ new Vue({
             isEditing: false,
             fromCurrency: null,
             toCurrency: null,
-            allCurrency: [
-                {
-                    'type': 'AED',
-                    'value': 4.321734
-                },
-                {
-                    'type': 'AFN',
-                    'value': 89.266597
-                },
-                {
-                    'type': 'ALL',
-                    'value': 126.493446
-                },
-                {
-                    'type': 'AMD',
-                    'value': 566.773548
-                },
-                {
-                    'type': 'ANG',
-                    'value': 2.172839
-                },
-                {
-                    'type': 'AOA',
-                    'value': 340.104087
-                },
-                {
-                    'type': 'ARS',
-                    'value': 43.893987
-                },
-                {
-                    'type': 'AUD',
-                    'value': 1.624196
-                },
-                {
-                    'type': 'AWG',
-                    'value': 2.118716
-                },
-                {
-                    'type': 'AZN',
-                    'value': 2.003124
-                },
-                {
-                    'type': 'BAM',
-                    'value': 1.957935
-                },
-                {
-                    'type': 'BBD',
-                    'value': 2.357208
-                },
-                {
-                    'type': 'BDT',
-                    'value': 98.949256
-                },
-                {
-                    'type': 'BGN',
-                    'value': 1.956114
-                },
-                {
-                    'type': 'BHD',
-                    'value': 0.443604
-                },
-                {
-                    'type': 'BIF',
-                    'value': 2086.948848
-                },
-                {
-                    'type': 'BMD',
-                    'value': 1.176574
-                },
-                {
-                    'type': 'BND',
-                    'value': 1.617261
-                },
-                {
-                    'type': 'BOB',
-                    'value': 8.139718
-                },
-                {
-                    'type': 'BRL',
-                    'value': 4.815485
-                },
-                {
-                    'type': 'BSD',
-                    'value': 1.177927
-                },
-                {
-                    'type': 'BTC',
-                    'value': 0.000184
-                },
-                {
-                    'type': 'BTN',
-                    'value': 85.468772
-                },
-                {
-                    'type': 'BWP',
-                    'value': 12.474628
-                },
-                {
-                    'type': 'BYN',
-                    'value': 2.452981
-                },
-                {
-                    'type': 'BYR',
-                    'value': 23060.858311
-                },
-                {
-                    'type': 'BZD',
-                    'value': 2.36703
-                },
-                {
-                    'type': 'CAD',
-                    'value': 1.524529
-                },
-                {
-                    'type': 'CDF',
-                    'value': 1911.933747
-                },
-                {
-                    'type': 'CHF',
-                    'value': 1.136589
-                },
-                {
-                    'type': 'CLF',
-                    'value': 0.02659
-                },
-                {
-                    'type': 'CLP',
-                    'value': 792.187387
-                },
-                {
-                    'type': 'CNY',
-                    'value': 8.089069
-                },
-                {
-                    'type': 'COP',
-                    'value': 3532.664647
-                },
-                {
-                    'type': 'CRC',
-                    'value': 681.895155
-                },
-                {
-                    'type': 'CUC',
-                    'value': 1.176574
-                },
-                {
-                    'type': 'CUP',
-                    'value': 31.179222
-                },
-                {
-                    'type': 'CVE',
-                    'value': 110.418566
-                },
-                {
-                    'type': 'CZK',
-                    'value': 25.621791
-                },
-                {
-                    'type': 'DJF',
-                    'value': 209.100327
-                },
-                {
-                    'type': 'DKK',
-                    'value': 7.458364
-                },
-                {
-                    'type': 'DOP',
-                    'value': 59.005483
-                },
-                {
-                    'type': 'DZD',
-                    'value': 138.356128
-                },
-                {
-                    'type': 'EGP',
-                    'value': 21.088922
-                },
-                {
-                    'type': 'ERN',
-                    'value': 17.64872
-                },
-                {
-                    'type': 'ETB',
-                    'value': 32.63994
-                },
-                {
-                    'type': 'EUR',
-                    'value': 1
-                },
-                {
-                    'type': 'FJD',
-                    'value': 2.493808
-                },
-                {
-                    'type': 'FKP',
-                    'value': 0.894185
-                },
-                {
-                    'type': 'GBP',
-                    'value': 0.894085
-                },
-                {
-                    'type': 'GEL',
-                    'value': 3.088485
-                },
-                {
-                    'type': 'GGP',
-                    'value': 0.894333
-                },
-                {
-                    'type': 'GHS',
-                    'value': 5.753094
-                },
-                {
-                    'type': 'GIP',
-                    'value': 0.894185
-                },
-                {
-                    'type': 'GMD',
-                    'value': 57.399232
-                },
-                {
-                    'type': 'GNF',
-                    'value': 10652.47305
-                },
-                {
-                    'type': 'GTQ',
-                    'value': 9.080037
-                },
-                {
-                    'type': 'GYD',
-                    'value': 245.680656
-                },
-                {
-                    'type': 'HKD',
-                    'value': 9.188634
-                },
-                {
-                    'type': 'HNL',
-                    'value': 28.303088
-                },
-                {
-                    'type': 'HRK',
-                    'value': 7.430888
-                },
-                {
-                    'type': 'HTG',
-                    'value': 81.958403
-                },
-                {
-                    'type': 'HUF',
-                    'value': 323.628519
-                },
-                {
-                    'type': 'IDR',
-                    'value': 17535.253111
-                },
-                {
-                    'type': 'ILS',
-                    'value': 4.214913
-                },
-                {
-                    'type': 'IMP',
-                    'value': 0.894333
-                },
-                {
-                    'type': 'INR',
-                    'value': 85.507555
-                },
-                {
-                    'type': 'IQD',
-                    'value': 1405.18281
-                },
-                {
-                    'type': 'IRR',
-                    'value': 49539.665278
-                },
-                {
-                    'type': 'ISK',
-                    'value': 130.800424
-                },
-                {
-                    'type': 'JEP',
-                    'value': 0.894333
-                },
-                {
-                    'type': 'JMD',
-                    'value': 159.967118
-                },
-                {
-                    'type': 'JOD',
-                    'value': 0.834784
-                },
-                {
-                    'type': 'JPY',
-                    'value': 132.778721
-                },
-                {
-                    'type': 'KES',
-                    'value': 118.894608
-                },
-                {
-                    'type': 'KGS',
-                    'value': 81.316941
-                },
-                {
-                    'type': 'KHR',
-                    'value': 4827.190465
-                },
-                {
-                    'type': 'KMF',
-                    'value': 491.631727
-                },
-                {
-                    'type': 'KPW',
-                    'value': 1058.947443
-                },
-                {
-                    'type': 'KRW',
-                    'value': 1315.759388
-                },
-                {
-                    'type': 'KWD',
-                    'value': 0.356151
-                },
-                {
-                    'type': 'KYD',
-                    'value': 0.98134
-                },
-                {
-                    'type': 'KZT',
-                    'value': 417.201307
-                },
-                {
-                    'type': 'LAK',
-                    'value': 10035.232632
-                },
-                {
-                    'type': 'LBP',
-                    'value': 1782.216426
-                },
-                {
-                    'type': 'LKR',
-                    'value': 198.676117
-                },
-                {
-                    'type': 'LRD',
-                    'value': 182.398426
-                },
-                {
-                    'type': 'LSL',
-                    'value': 16.748519
-                },
-                {
-                    'type': 'LTL',
-                    'value': 3.474118
-                },
-                {
-                    'type': 'LVL',
-                    'value': 0.711698
-                },
-                {
-                    'type': 'LYD',
-                    'value': 1.621614
-                },
-                {
-                    'type': 'MAD',
-                    'value': 11.004514
-                },
-                {
-                    'type': 'MDL',
-                    'value': 19.790297
-                },
-                {
-                    'type': 'MGA',
-                    'value': 4023.656708
-                },
-                {
-                    'type': 'MKD',
-                    'value': 61.587785
-                },
-                {
-                    'type': 'MMK',
-                    'value': 1887.693306
-                },
-                {
-                    'type': 'MNT',
-                    'value': 2970.67127
-                },
-                {
-                    'type': 'MOP',
-                    'value': 9.472071
-                },
-                {
-                    'type': 'MRO',
-                    'value': 419.45019
-                },
-                {
-                    'type': 'MUR',
-                    'value': 40.156147
-                },
-                {
-                    'type': 'MVR',
-                    'value': 18.114542
-                },
-                {
-                    'type': 'MWK',
-                    'value': 855.593179
-                },
-                {
-                    'type': 'MXN',
-                    'value': 22.32304
-                },
-                {
-                    'type': 'MYR',
-                    'value': 4.866333
-                },
-                {
-                    'type': 'MZN',
-                    'value': 71.558944
-                },
-                {
-                    'type': 'NAD',
-                    'value': 16.748541
-                },
-                {
-                    'type': 'NGN',
-                    'value': 428.085446
-                },
-                {
-                    'type': 'NIO',
-                    'value': 37.69686
-                },
-                {
-                    'type': 'NOK',
-                    'value': 9.576751
-                },
-                {
-                    'type': 'NPR',
-                    'value': 136.759109
-                },
-                {
-                    'type': 'NZD',
-                    'value': 1.770539
-                },
-                {
-                    'type': 'OMR',
-                    'value': 0.452975
-                },
-                {
-                    'type': 'PAB',
-                    'value': 1.178045
-                },
-                {
-                    'type': 'PEN',
-                    'value': 3.884932
-                },
-                {
-                    'type': 'PGK',
-                    'value': 3.914993
-                },
-                {
-                    'type': 'PHP',
-                    'value': 63.900957
-                },
-                {
-                    'type': 'PKR',
-                    'value': 144.977467
-                },
-                {
-                    'type': 'PLN',
-                    'value': 4.289155
-                },
-                {
-                    'type': 'PYG',
-                    'value': 6906.197444
-                },
-                {
-                    'type': 'QAR',
-                    'value': 4.28393
-                },
-                {
-                    'type': 'RON',
-                    'value': 4.661235
-                },
-                {
-                    'type': 'RSD',
-                    'value': 118.316257
-                },
-                {
-                    'type': 'RUB',
-                    'value': 77.392126
-                },
-                {
-                    'type': 'RWF',
-                    'value': 1038.473983
-                },
-                {
-                    'type': 'SAR',
-                    'value': 4.412095
-                },
-                {
-                    'type': 'SBD',
-                    'value': 9.424834
-                },
-                {
-                    'type': 'SCR',
-                    'value': 16.007885
-                },
-                {
-                    'type': 'SDG',
-                    'value': 21.197754
-                },
-                {
-                    'type': 'SEK',
-                    'value': 10.344619
-                },
-                {
-                    'type': 'SGD',
-                    'value': 1.606953
-                },
-                {
-                    'type': 'SHP',
-                    'value': 1.554141
-                },
-                {
-                    'type': 'SLL',
-                    'value': 9900.873118
-                },
-                {
-                    'type': 'SOS',
-                    'value': 680.646279
-                },
-                {
-                    'type': 'SRD',
-                    'value': 8.774883
-                },
-                {
-                    'type': 'STD',
-                    'value': 24631.964272
-                },
-                {
-                    'type': 'SVC',
-                    'value': 10.304913
-                },
-                {
-                    'type': 'SYP',
-                    'value': 605.936094
-                },
-                {
-                    'type': 'SZL',
-                    'value': 16.755007
-                },
-                {
-                    'type': 'THB',
-                    'value': 38.158069
-                },
-                {
-                    'type': 'TJS',
-                    'value': 11.09892
-                },
-                {
-                    'type': 'TMT',
-                    'value': 4.129776
-                },
-                {
-                    'type': 'TND',
-                    'value': 3.265584
-                },
-                {
-                    'type': 'TOP',
-                    'value': 2.674412
-                },
-                {
-                    'type': 'TRY',
-                    'value': 7.22792
-                },
-                {
-                    'type': 'TTD',
-                    'value': 7.939583
-                },
-                {
-                    'type': 'TWD',
-                    'value': 36.102595
-                },
-                {
-                    'type': 'TZS',
-                    'value': 2687.296031
-                },
-                {
-                    'type': 'UAH',
-                    'value': 33.080622
-                },
-                {
-                    'type': 'UGX',
-                    'value': 4486.997944
-                },
-                {
-                    'type': 'USD',
-                    'value': 1.176574
-                },
-                {
-                    'type': 'UYU',
-                    'value': 38.756677
-                },
-                {
-                    'type': 'UZS',
-                    'value': 9466.003083
-                },
-                {
-                    'type': 'VEF',
-                    'value': 292402.211993
-                },
-                {
-                    'type': 'VND',
-                    'value': 27467.71774
-                },
-                {
-                    'type': 'VUV',
-                    'value': 133.065141
-                },
-                {
-                    'type': 'WST',
-                    'value': 3.060199
-                },
-                {
-                    'type': 'XAF',
-                    'value': 656.704618
-                },
-                {
-                    'type': 'XAG',
-                    'value': 0.082425
-                },
-                {
-                    'type': 'XAU',
-                    'value': 0.00098
-                },
-                {
-                    'type': 'XCD',
-                    'value': 3.179752
-                },
-                {
-                    'type': 'XDR',
-                    'value': 0.83812
-                },
-                {
-                    'type': 'XOF',
-                    'value': 656.658311
-                },
-                {
-                    'type': 'XPF',
-                    'value': 119.386956
-                },
-                {
-                    'type': 'YER',
-                    'value': 294.448014
-                },
-                {
-                    'type': 'ZAR',
-                    'value': 16.907551
-                },
-                {
-                    'type': 'ZMK',
-                    'value': 10590.600627
-                },
-                {
-                    'type': 'ZMW',
-                    'value': 13.990625
-                },
-                {
-                    'type': 'ZWL',
-                    'value': 379.274655
-                }
-            ],
-            lastUpdate: "2018-10-2 10:50:20",
-            currencyType: []
+            lastUpdate: "Fetching...",
+            
         }
     },
     methods: {
         getCurrencyList: function () {
-            maxDisplay = 5;
-            if (this.$data.currencyType.length > 0) {
-                return this.$data.currencyType
-            }
-            for (i in this.$data.allCurrency) {
-                if (i >= maxDisplay) {
-                    break
-                }
-                this.$data.currencyType.push(this.$data.allCurrency[i].type)
-            }
-            return this.$data.currencyType
+            return dataApp.currencyList
         },
-        getDisplayCurrency: function () {
-            curreny = []
-
-            for (i in this.$data.allCurrency) {
-                curreny.push(this.$data.allCurrency[i])
-            }
-
-            return curreny
+        getRate: function (key) {
+            return dataApp.rates[key]
+        },
+        moveItemToEnd: function (item) {
+            const index = this.allCurrency.indexOf(item)
+            oldItem = this.allCurrency[index]
+            this.allCurrency.splice(index, 1)
+            this.allCurrency.push(oldItem)
+        },
+        updateRateFromApi: function (data) {
+            this.lastUpdate = data.date
+            dataApp.rates = data.rates
         }
+    },
+    mounted() {
+        axios.get('http://data.fixer.io/api/latest?access_key=b56e8eafefe3cf628e9296122260a739&format=1')
+            .then(response => {
+                this.updateRateFromApi(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+            .finally(() => {
+                console.log("done")
+            })
     }
 })
