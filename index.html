@@ -20,13 +20,15 @@
                         </v-text-field>
                     </v-flex>
                     <v-flex xs12 md4>
-                        <v-autocomplete v-model="fromCurrency" :items="getCurrencyList()" :label="`From Currency`" :no-data-text="noCurrencyWarning" persistent-hint>
+                        <v-autocomplete v-model="fromCurrency" :items="getCurrencyList()" :label="`From Currency`"
+                            :no-data-text="noCurrencyWarning" persistent-hint>
                             <v-slide-x-reverse-transition slot="append-outer" mode="out-in">
                             </v-slide-x-reverse-transition>
                         </v-autocomplete>
                     </v-flex>
                     <v-flex xs12 md4>
-                        <v-autocomplete v-model="toCurrency" :items="getCurrencyList()" :label="`To Currency`" persistent-hint :no-data-text="noCurrencyWarning">
+                        <v-autocomplete v-model="toCurrency" :items="getCurrencyList()" :label="`To Currency`"
+                            persistent-hint :no-data-text="noCurrencyWarning">
                             <v-slide-x-reverse-transition slot="append-outer" mode="out-in">
                             </v-slide-x-reverse-transition>
                         </v-autocomplete>
@@ -36,18 +38,25 @@
                 <!-- Table -->
                 <v-layout>
                     <v-flex xs12>
-                        <v-data-table :headers="headers" :items="getCurrencyList()" :rows-per-page-items="rowControl" class="elevation-1">
+                        <v-data-table :headers="headers" :items="getCurrencyList()" :pagination.sync="pagination"
+                            :rows-per-page-items="rowControl" class="elevation-1">
                             <template slot="items" slot-scope="props">
-                                <td class="text-xs-center subheading">{{ props.item }}</td>
-                                <td class="text-xs-center subheading">{{ getCalculatedAmount(props.item) }}</td>
-                                <td class="text-xs-center subheading">
+                                <td class="">
+                                </td>
+                                <td class="text-xs-center" v-bind:class="[props.item == toCurrency ? 'font-weight-bold title teal--text' : 'subheading']">
+                                    {{ props.item }}
+                                </td>
+                                <td cclass="text-xs-center" v-bind:class="[props.item == toCurrency ? 'font-weight-bold title teal--text' : 'subheading']">
+                                    {{ getCalculatedAmount(props.item) }}
+                                </td>
+                                <td class="text-xs-center">
                                     <v-icon small @click="highItem(props.item)">
                                         visibility_off
                                     </v-icon>
                                 </td>
                             </template>
                             <template slot="footer">
-                                <td colspan="3" class="text-xs-right light-blue white--text">
+                                <td colspan="4" class="text-xs-right light-blue white--text">
                                     <span class="subheading">
                                         Last update: {{ lastUpdate }}
                                     </span>

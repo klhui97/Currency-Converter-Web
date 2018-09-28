@@ -175,6 +175,13 @@ var rateDataApp = new Vue({
         }
     },
     methods: {
+        moveItemToFront: function (item) {
+            const index = this.currencyList.indexOf(item)
+            oldItem = this.currencyList[index]
+            this.currencyList.splice(index, 1)
+            this.currencyList.unshift(oldItem)
+            this.saveCurrencyListToLocal()
+        },
         moveItemToEnd: function (item) {
             const index = this.currencyList.indexOf(item)
             oldItem = this.currencyList[index]

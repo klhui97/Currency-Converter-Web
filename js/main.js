@@ -4,11 +4,17 @@ var main = new Vue({
         return {
             headers: [
                 {
+                    text: '',
+                    align: 'center',
+                    sortable: false,
+                    width: '5%'
+                },
+                {
                     text: 'Currency',
                     align: 'center',
                     sortable: false,
                     value: 'type',
-                    width: '30%',
+                    width: '25%',
                     class: ['teal', 'white--text', 'subheading']
                 },
                 {
@@ -28,13 +34,15 @@ var main = new Vue({
                     class: ['teal', 'white--text', 'subheading']
                 }
             ],
+            pagination: {},
+            selected: [],
             rules: {
                 number: value => {
                     return !isNaN(value) || 'Input must be a number'
                 }
             },
             rowControl: [5, 10, 20],
-            isEditing: false,
+            isEditing: true,
             inputAmount: 1,
             fromCurrency: "HKD",
             toCurrency: "USD",
@@ -66,11 +74,16 @@ var main = new Vue({
             var amount = this.inputAmount / this.getRate(this.fromCurrency) // EUR base amount
             convertedAmount = amount * this.getRate(key)
             return convertedAmount.toFixed(4)
+        },
+        isTarget: function (name) {
+            if (name == this.toCurrency) {
+                return true
+            }else {
+                return false
+            }
         }
     },
     mounted() {
-        storageApp.loadMainDataFromCache(this)
-
         this.$http.get('http://data.fixer.io/api/latest?access_key=b56e8eafefe3cf628e9296122260a739&format=1').then(function (response) {
             if (response.status == "200") {
                 this.updateRateFromApi(response.body)
@@ -81,7 +94,7 @@ var main = new Vue({
             storageApp.loadRateFromCache(this)
         })
 
-
+        storageApp.loadMainDataFromCache(this)
     },
     watch: {
         fromCurrency(newFromCurrency, old) {
@@ -92,6 +105,8 @@ var main = new Vue({
         toCurrency(newToCurrency, old) {
             if (old != newToCurrency) {
                 localStorage.setItem("toCurrency", newToCurrency)
+                this.pagination.page = 1
+                rateDataApp.moveItemToFront(newToCurrency)
             }
         },
         lastUpdate(newLastUpdate) {
