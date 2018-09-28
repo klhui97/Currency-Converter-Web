@@ -16,7 +16,7 @@
                 <!-- input -->
                 <v-layout row wrap>
                     <v-flex xs12 md4>
-                        <v-text-field label="Amount" :rules="[rules.number]">
+                        <v-text-field v-model="inputAmount" label="Amount" :rules="[rules.number]">
                         </v-text-field>
                     </v-flex>
                     <v-flex xs12 md4>
@@ -46,7 +46,7 @@
                             </template>
                             <template slot="items" slot-scope="props">
                                 <td class="text-xs-center">{{ props.item }}</td>
-                                <td class="text-xs-center">{{ getRate(props.item) }}</td>
+                                <td class="text-xs-center">{{ getCalculatedAmount(props.item) }}</td>
                                 <td class="text-xs-center">
                                     <v-icon small @click="moveItemToEnd(props.item)">
                                         visibility_off

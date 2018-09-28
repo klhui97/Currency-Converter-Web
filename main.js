@@ -1,7 +1,7 @@
 var dataApp = new Vue({
     data() {
         return {
-            currencyList: ["AED", "AFN", "ALL", "AMD", "ANG", "AOA", "ARS", "AUD", "AWG", "AZN", "BAM", "BBD", "BDT", "BGN", "BHD", "BIF", "BMD", "BND", "BOB", "BRL", "BSD", "BTC", "BTN", "BWP", "BYN", "BYR", "BZD", "CAD", "CDF", "CHF", "CLF", "CLP", "CNY", "COP", "CRC", "CUC", "CUP", "CVE", "CZK", "DJF", "DKK", "DOP", "DZD", "EGP", "ERN", "ETB", "EUR", "FJD", "FKP", "GBP", "GEL", "GGP", "GHS", "GIP", "GMD", "GNF", "GTQ", "GYD", "HKD", "HNL", "HRK", "HTG", "HUF", "IDR", "ILS", "IMP", "INR", "IQD", "IRR", "ISK", "JEP", "JMD", "JOD", "JPY", "KES", "KGS", "KHR", "KMF", "KPW", "KRW", "KWD", "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LSL", "LTL", "LVL", "LYD", "MAD", "MDL", "MGA", "MKD", "MMK", "MNT", "MOP", "MRO", "MUR", "MVR", "MWK", "MXN", "MYR", "MZN", "NAD", "NGN", "NIO", "NOK", "NPR", "NZD", "OMR", "PAB", "PEN", "PGK", "PHP", "PKR", "PLN", "PYG", "QAR", "RON", "RSD", "RUB", "RWF", "SAR", "SBD", "SCR", "SDG", "SEK", "SGD", "SHP", "SLL", "SOS", "SRD", "STD", "SVC", "SYP", "SZL", "THB", "TJS", "TMT", "TND", "TOP", "TRY", "TTD", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "VUV", "WST", "XAF", "XAG", "XAU", "XCD", "XDR", "XOF", "XPF", "YER", "ZAR", "ZMK", "ZMW", "ZWL"],
+            currencyList: ["USD", "HKD", "AED", "AFN", "ALL", "AMD", "ANG", "AOA", "ARS", "AUD", "AWG", "AZN", "BAM", "BBD", "BDT", "BGN", "BHD", "BIF", "BMD", "BND", "BOB", "BRL", "BSD", "BTC", "BTN", "BWP", "BYN", "BYR", "BZD", "CAD", "CDF", "CHF", "CLF", "CLP", "CNY", "COP", "CRC", "CUC", "CUP", "CVE", "CZK", "DJF", "DKK", "DOP", "DZD", "EGP", "ERN", "ETB", "EUR", "FJD", "FKP", "GBP", "GEL", "GGP", "GHS", "GIP", "GMD", "GNF", "GTQ", "GYD", "HNL", "HRK", "HTG", "HUF", "IDR", "ILS", "IMP", "INR", "IQD", "IRR", "ISK", "JEP", "JMD", "JOD", "JPY", "KES", "KGS", "KHR", "KMF", "KPW", "KRW", "KWD", "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LSL", "LTL", "LVL", "LYD", "MAD", "MDL", "MGA", "MKD", "MMK", "MNT", "MOP", "MRO", "MUR", "MVR", "MWK", "MXN", "MYR", "MZN", "NAD", "NGN", "NIO", "NOK", "NPR", "NZD", "OMR", "PAB", "PEN", "PGK", "PHP", "PKR", "PLN", "PYG", "QAR", "RON", "RSD", "RUB", "RWF", "SAR", "SBD", "SCR", "SDG", "SEK", "SGD", "SHP", "SLL", "SOS", "SRD", "STD", "SVC", "SYP", "SZL", "THB", "TJS", "TMT", "TND", "TOP", "TRY", "TTD", "TWD", "TZS", "UAH", "UGX", "UYU", "UZS", "VEF", "VND", "VUV", "WST", "XAF", "XAG", "XAU", "XCD", "XDR", "XOF", "XPF", "YER", "ZAR", "ZMK", "ZMW", "ZWL"],
             rates: {
                 "AED": 4.304061,
                 "AFN": 88.96846,
@@ -173,6 +173,39 @@ var dataApp = new Vue({
                 "ZWL": 377.723629
             }
         }
+    },
+    watch: {
+        rates(newValue) {
+            const parsed = JSON.stringify(newValue);
+            localStorage.setItem('rates', parsed);
+        }
+    }
+})
+
+var storageApp = new Vue({
+    methods: {
+        loadMainDataFromCache: function (target) {
+            if (localStorage.fromCurrency) {
+                target.fromCurrency = localStorage.fromCurrency
+            }
+
+            if (localStorage.toCurrency) {
+                target.toCurrency = localStorage.toCurrency
+            }
+        },
+        loadRateFromCache: function (target) {
+            if (localStorage.lastUpdate) {
+                target.lastUpdate = localStorage.lastUpdate
+            }
+
+            if (localStorage.getItem('rates')) {
+                try {
+                    dataApp.rates = JSON.parse(localStorage.getItem('rates'));
+                } catch (e) {
+                    localStorage.removeItem('rates');
+                }
+            }
+        }
     }
 })
 
@@ -196,7 +229,7 @@ var main = new Vue({
                     width: '60%'
                 },
                 {
-                    text: 'Move to bottom',
+                    text: 'Hide',
                     align: 'center',
                     sortable: false,
                     value: 'value',
@@ -205,16 +238,16 @@ var main = new Vue({
             ],
             rules: {
                 number: value => {
-                    console.log(typeof(value))
                     return !isNaN(value) || 'Input must be a number'
                 }
             },
             rowControl: [5, 10, 20],
             isEditing: false,
-            fromCurrency: null,
-            toCurrency: null,
+            inputAmount: 1,
+            fromCurrency: "EUR",
+            toCurrency: "USD",
             lastUpdate: "Fetching...",
-            
+
         }
     },
     methods: {
@@ -225,14 +258,19 @@ var main = new Vue({
             return dataApp.rates[key]
         },
         moveItemToEnd: function (item) {
-            const index = this.allCurrency.indexOf(item)
-            oldItem = this.allCurrency[index]
-            this.allCurrency.splice(index, 1)
-            this.allCurrency.push(oldItem)
+            const index = dataApp.currencyList.indexOf(item)
+            oldItem = dataApp.currencyList[index]
+            dataApp.currencyList.splice(index, 1)
+            dataApp.currencyList.push(oldItem)
         },
         updateRateFromApi: function (data) {
             this.lastUpdate = data.date
             dataApp.rates = data.rates
+        },
+        getCalculatedAmount: function (key) {
+            var amount = this.inputAmount / this.getRate(this.fromCurrency) // EUR base amount
+            convertedAmount = amount * this.getRate(key)
+            return convertedAmount.toFixed(4)
         }
     },
     mounted() {
@@ -241,10 +279,24 @@ var main = new Vue({
                 this.updateRateFromApi(response.data)
             })
             .catch(error => {
-                console.log(error)
+                this.lastUpdate = "fail to fetch latest rate"
+                storageApp.loadRateFromCache(this)
             })
             .finally(() => {
                 console.log("done")
             })
+
+        storageApp.loadMainDataFromCache(this)
+    },
+    watch: {
+        fromCurrency(newFromCurrency) {
+            localStorage.fromCurrency = newFromCurrency
+        },
+        toCurrency(newToCurrency) {
+            localStorage.toCurrency = newToCurrency
+        },
+        lastUpdate(newLastUpdate) {
+            localStorage.lastUpdate = newLastUpdate
+        }
     }
 })
