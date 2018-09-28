@@ -41,12 +41,11 @@
                         <v-data-table :headers="headers" :items="getCurrencyList()" :pagination.sync="pagination"
                             :rows-per-page-items="rowControl" class="elevation-1">
                             <template slot="items" slot-scope="props">
-                                <td class="">
-                                </td>
-                                <td class="text-xs-center" v-bind:class="[props.item == toCurrency ? 'font-weight-bold title teal--text' : 'subheading']">
+                                <td class="text-xs-left pt-1 pb-1" v-bind:class="[props.item == toCurrency ? 'font-weight-bold title teal--text' : 'subheading']">
+                                    <img :src="getFlagImage(props.item) || './img/flags/usd.png'" :width="imageWidth" />
                                     {{ props.item }}
                                 </td>
-                                <td cclass="text-xs-center" v-bind:class="[props.item == toCurrency ? 'font-weight-bold title teal--text' : 'subheading']">
+                                <td class="text-xs-left" v-bind:class="[props.item == toCurrency ? 'font-weight-bold title teal--text' : 'subheading']">
                                     {{ getCalculatedAmount(props.item) }}
                                 </td>
                                 <td class="text-xs-center">

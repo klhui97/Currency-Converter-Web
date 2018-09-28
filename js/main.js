@@ -4,51 +4,40 @@ var main = new Vue({
         return {
             headers: [
                 {
-                    text: '',
-                    align: 'center',
-                    sortable: false,
-                    width: '5%'
-                },
-                {
                     text: 'Currency',
                     align: 'center',
                     sortable: false,
-                    value: 'type',
-                    width: '25%',
+                    width: '15%',
                     class: ['teal', 'white--text', 'subheading']
                 },
                 {
                     text: 'Amount',
-                    align: 'center',
+                    align: 'left',
                     sortable: false,
-                    value: 'value',
-                    width: '60%',
+                    width: '80%',
                     class: ['teal', 'white--text', 'subheading']
                 },
                 {
                     text: 'Hide',
                     align: 'center',
                     sortable: false,
-                    value: 'value',
-                    width: '10%',
+                    width: '5%',
                     class: ['teal', 'white--text', 'subheading']
                 }
             ],
             pagination: {},
-            selected: [],
             rules: {
                 number: value => {
                     return !isNaN(value) || 'Input must be a number'
                 }
             },
             rowControl: [5, 10, 20],
-            isEditing: true,
             inputAmount: 1,
             fromCurrency: "HKD",
             toCurrency: "USD",
             lastUpdate: "Fetching...",
-            noCurrencyWarning: "Currency not found"
-
+            noCurrencyWarning: "Currency not found",
+            defaultCurrencyImagePath: "./img/flags/usd.png"
         }
     },
     methods: {
@@ -75,12 +64,9 @@ var main = new Vue({
             convertedAmount = amount * this.getRate(key)
             return convertedAmount.toFixed(4)
         },
-        isTarget: function (name) {
-            if (name == this.toCurrency) {
-                return true
-            }else {
-                return false
-            }
+        getFlagImage: function (flagName) {
+            var path = './img/flags/' + flagName.toLowerCase() + '.png'
+            return path
         }
     },
     mounted() {
@@ -111,6 +97,14 @@ var main = new Vue({
         },
         lastUpdate(newLastUpdate) {
             localStorage.setItem("lastUpdate", newLastUpdate)
+        }
+    },
+    computed: {
+        imageWidth() {
+            if (this.$vuetify.breakpoint.name == 'xs') {
+                return '40px'
+            }
+            return '48px';
         }
     }
 })
