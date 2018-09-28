@@ -67,6 +67,11 @@ var main = new Vue({
         getFlagImage: function (flagName) {
             var path = './img/flags/' + flagName.toLowerCase() + '.png'
             return path
+        },
+        swapCurrency: function() {
+            var temp = this.fromCurrency
+            this.fromCurrency = this.toCurrency
+            this.toCurrency = temp
         }
     },
     mounted() {

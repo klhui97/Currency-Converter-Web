@@ -192,12 +192,10 @@ var rateDataApp = new Vue({
         saveCurrencyListToLocal: function () {
             const parsed = JSON.stringify(this.currencyList)
             localStorage.setItem('currencyList', parsed)
-            console.log("load currencyList from local")
         },
         loadCurrencyListFromLocal: function () {
             if (localStorage.getItem("currencyList")) {
                 try {
-                    console.log("load currencyList from local")
                     this.currencyList = JSON.parse(localStorage.getItem('currencyList'));
                 } catch (e) {
                     localStorage.removeItem('currencyList');

@@ -15,18 +15,24 @@
 
                 <!-- input -->
                 <v-layout row wrap>
-                    <v-flex xs12 md4>
+                    <v-flex xs12 md12>
                         <v-text-field v-model="inputAmount" label="Amount" :rules="[rules.number]">
                         </v-text-field>
                     </v-flex>
-                    <v-flex xs12 md4>
+                    <v-flex xs5 md5>
                         <v-autocomplete v-model="fromCurrency" :items="getCurrencyList()" :label="`From Currency`"
                             :no-data-text="noCurrencyWarning" persistent-hint>
                             <v-slide-x-reverse-transition slot="append-outer" mode="out-in">
                             </v-slide-x-reverse-transition>
                         </v-autocomplete>
                     </v-flex>
-                    <v-flex xs12 md4>
+                    <v-flex xs2 md2>
+                        <v-btn flat icon color="green" @click="swapCurrency">
+                            <v-icon>swap_horiz</v-icon>
+                        </v-btn>
+                    </v-flex>
+
+                    <v-flex xs5 md5>
                         <v-autocomplete v-model="toCurrency" :items="getCurrencyList()" :label="`To Currency`"
                             persistent-hint :no-data-text="noCurrencyWarning">
                             <v-slide-x-reverse-transition slot="append-outer" mode="out-in">
