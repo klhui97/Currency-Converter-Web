@@ -174,6 +174,30 @@ var rateDataApp = new Vue({
             }
         }
     },
+    methods: {
+        moveItemToEnd: function (item) {
+            const index = this.currencyList.indexOf(item)
+            oldItem = this.currencyList[index]
+            this.currencyList.splice(index, 1)
+            this.currencyList.push(oldItem)
+            this.saveCurrencyListToLocal()
+        },
+        saveCurrencyListToLocal: function () {
+            const parsed = JSON.stringify(this.currencyList)
+            localStorage.setItem('currencyList', parsed)
+            console.log("load currencyList from local")
+        },
+        loadCurrencyListFromLocal: function () {
+            if (localStorage.getItem("currencyList")) {
+                try {
+                    console.log("load currencyList from local")
+                    this.currencyList = JSON.parse(localStorage.getItem('currencyList'));
+                } catch (e) {
+                    localStorage.removeItem('currencyList');
+                }
+            }
+        }
+    },
     watch: {
         rates(newValue) {
             const parsed = JSON.stringify(newValue)

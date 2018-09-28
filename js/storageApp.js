@@ -10,6 +10,8 @@ var storageApp = new Vue({
                 console.log("load from toCurrency")
                 target.toCurrency = localStorage.getItem("toCurrency")
             }
+
+            rateDataApp.loadCurrencyListFromLocal()
         },
         loadRateFromCache: function (target) {
             if (localStorage.getItem("lastUpdate")) {

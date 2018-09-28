@@ -8,21 +8,24 @@ var main = new Vue({
                     align: 'center',
                     sortable: false,
                     value: 'type',
-                    width: '30%'
+                    width: '30%',
+                    class: ['teal', 'white--text', 'subheading']
                 },
                 {
                     text: 'Amount',
                     align: 'center',
                     sortable: false,
                     value: 'value',
-                    width: '60%'
+                    width: '60%',
+                    class: ['teal', 'white--text', 'subheading']
                 },
                 {
                     text: 'Hide',
                     align: 'center',
                     sortable: false,
                     value: 'value',
-                    width: '10%'
+                    width: '10%',
+                    class: ['teal', 'white--text', 'subheading']
                 }
             ],
             rules: {
@@ -33,9 +36,10 @@ var main = new Vue({
             rowControl: [5, 10, 20],
             isEditing: false,
             inputAmount: 1,
-            fromCurrency: "EUR",
+            fromCurrency: "HKD",
             toCurrency: "USD",
             lastUpdate: "Fetching...",
+            noCurrencyWarning: "Currency not found"
 
         }
     },
@@ -46,14 +50,16 @@ var main = new Vue({
         getRate: function (key) {
             return rateDataApp.rates[key]
         },
-        moveItemToEnd: function (item) {
-            const index = rateDataApp.currencyList.indexOf(item)
-            oldItem = rateDataApp.currencyList[index]
-            rateDataApp.currencyList.splice(index, 1)
-            rateDataApp.currencyList.push(oldItem)
+        highItem: function (item) {
+            rateDataApp.moveItemToEnd(item)
         },
         updateRateFromApi: function (data) {
-            this.lastUpdate = data.date
+            var date = new Date(data.timestamp * 1000)
+            var hours = date.getHours()
+            var minutes = "0" + date.getMinutes()
+            var seconds = "0" + date.getSeconds()
+
+            this.lastUpdate = data.date + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
             rateDataApp.rates = data.rates
         },
         getCalculatedAmount: function (key) {
@@ -63,24 +69,30 @@ var main = new Vue({
         }
     },
     mounted() {
-        this.$http.get('http2://data.fixer.io/api/latest?access_key=b56e8eafefe3cf628e9296122260a739&format=1').then(function (response) {
+        storageApp.loadMainDataFromCache(this)
+
+        this.$http.get('http://data.fixer.io/api/latest?access_key=b56e8eafefe3cf628e9296122260a739&format=1').then(function (response) {
             if (response.status == "200") {
                 this.updateRateFromApi(response.body)
-            }else {
+            } else {
                 storageApp.loadRateFromCache(this)
             }
         }).catch(e => {
             storageApp.loadRateFromCache(this)
         })
 
-        storageApp.loadMainDataFromCache(this)
+
     },
     watch: {
-        fromCurrency(newFromCurrency) {
-            localStorage.setItem("fromCurrency", newFromCurrency)
+        fromCurrency(newFromCurrency, old) {
+            if (old != newFromCurrency) {
+                localStorage.setItem("fromCurrency", newFromCurrency)
+            }
         },
-        toCurrency(newToCurrency) {
-            localStorage.setItem("toCurrency", newToCurrency)
+        toCurrency(newToCurrency, old) {
+            if (old != newToCurrency) {
+                localStorage.setItem("toCurrency", newToCurrency)
+            }
         },
         lastUpdate(newLastUpdate) {
             localStorage.setItem("lastUpdate", newLastUpdate)

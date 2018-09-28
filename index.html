@@ -3,7 +3,7 @@
 
 <head>
     <title>Currency Converter</title>
-    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <link href='css/mian.css' rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
@@ -20,13 +20,13 @@
                         </v-text-field>
                     </v-flex>
                     <v-flex xs12 md4>
-                        <v-autocomplete v-model="fromCurrency" :items="getCurrencyList()" :label="`From Currency`" persistent-hint>
+                        <v-autocomplete v-model="fromCurrency" :items="getCurrencyList()" :label="`From Currency`" :no-data-text="noCurrencyWarning" persistent-hint>
                             <v-slide-x-reverse-transition slot="append-outer" mode="out-in">
                             </v-slide-x-reverse-transition>
                         </v-autocomplete>
                     </v-flex>
                     <v-flex xs12 md4>
-                        <v-autocomplete v-model="toCurrency" :items="getCurrencyList()" :label="`To Currency`" persistent-hint>
+                        <v-autocomplete v-model="toCurrency" :items="getCurrencyList()" :label="`To Currency`" persistent-hint :no-data-text="noCurrencyWarning">
                             <v-slide-x-reverse-transition slot="append-outer" mode="out-in">
                             </v-slide-x-reverse-transition>
                         </v-autocomplete>
@@ -37,20 +37,20 @@
                 <v-layout>
                     <v-flex xs12>
                         <v-data-table :headers="headers" :items="getCurrencyList()" :rows-per-page-items="rowControl" class="elevation-1">
+                            <template slot="items" slot-scope="props">
+                                <td class="text-xs-center subheading">{{ props.item }}</td>
+                                <td class="text-xs-center subheading">{{ getCalculatedAmount(props.item) }}</td>
+                                <td class="text-xs-center subheading">
+                                    <v-icon small @click="highItem(props.item)">
+                                        visibility_off
+                                    </v-icon>
+                                </td>
+                            </template>
                             <template slot="footer">
                                 <td colspan="3" class="text-xs-right light-blue white--text">
                                     <span class="subheading">
                                         Last update: {{ lastUpdate }}
                                     </span>
-                                </td>
-                            </template>
-                            <template slot="items" slot-scope="props">
-                                <td class="text-xs-center">{{ props.item }}</td>
-                                <td class="text-xs-center">{{ getCalculatedAmount(props.item) }}</td>
-                                <td class="text-xs-center">
-                                    <v-icon small @click="moveItemToEnd(props.item)">
-                                        visibility_off
-                                    </v-icon>
                                 </td>
                             </template>
                             <template slot="pageText" slot-scope="props">
