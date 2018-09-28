@@ -274,19 +274,11 @@ var main = new Vue({
         }
     },
     mounted() {
-        axios.get('http://data.fixer.io/api/latest?access_key=b56e8eafefe3cf628e9296122260a739&format=1')
-            .then(response => {
-                this.updateRateFromApi(response.data)
-            })
-            .catch(error => {
-                this.lastUpdate = "fail to fetch latest rate"
-                storageApp.loadRateFromCache(this)
-            })
-            .finally(() => {
-                console.log("done")
-            })
-
-        storageApp.loadMainDataFromCache(this)
+        this.$http.get('http://data.fixer.io/api/latest?access_key=b56e8eafefe3cf628e9296122260a739&format=1').then(function (response) {
+            if (response.status == "200") {
+                this.updateRateFromApi(response.body)
+            }
+        })
     },
     watch: {
         fromCurrency(newFromCurrency) {
