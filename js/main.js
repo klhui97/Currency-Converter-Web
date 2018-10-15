@@ -273,6 +273,9 @@ var main = new Vue({
                     return !isNaN(value) || 'Input must be a number'
                 }
             },
+            today: null,
+            targetDate: null,
+            dateMenu: false,
             rowControl: [5, 10, 20],
             inputAmount: 1,
             fromCurrency: "HKD",
@@ -314,17 +317,44 @@ var main = new Vue({
             var temp = this.fromCurrency
             this.fromCurrency = this.toCurrency
             this.toCurrency = temp
-        }
-    },
-    mounted() {
-        var main = this
-        storageApp.loadRateFromCache(this)
-        var apiEndpoint = 'http://data.fixer.io/api/latest?access_key=' + key.key + '&format=1';
-        fetch(apiEndpoint).then(function (response) {
+        },
+        allowedDates: function (val) {
+            var choice = val.split('-')
+            var today = this.today.split('-')
+            if (choice[0] <= today[0] && choice[1] <= today[1] & choice[2] <= today[2]) {
+                return true
+            }
+            return false
+        },
+        getHistoryRate: function (date) {
+            var main = this
+            
+            var apiEndpoint = 'http://data.fixer.io/api/' + date + '?access_key=' + key.key + '&base=EUR';
+            fetch(apiEndpoint).then(function (response) {
                 return response.json();
             }).then(function (myJson) {
                 main.updateRateFromApi(myJson);
             });
+        }
+    },
+    mounted() {
+        var main = this
+
+        // Load date
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        main.targetDate = '' + (yyyy + '-' + mm + '-' + dd)
+        main.today = '' + (yyyy + '-' + mm + '-' + dd)
+
+        storageApp.loadRateFromCache(this)
+        var apiEndpoint = 'http://data.fixer.io/api/latest?access_key=' + key.key + '&format=1';
+        fetch(apiEndpoint).then(function (response) {
+            return response.json();
+        }).then(function (myJson) {
+            main.updateRateFromApi(myJson);
+        });
         storageApp.loadMainDataFromCache(this)
     },
     watch: {
@@ -342,6 +372,11 @@ var main = new Vue({
         },
         lastUpdate(newLastUpdate) {
             localStorage.setItem("lastUpdate", newLastUpdate)
+        },
+        targetDate(newDate, old) {
+            if (old) {
+                this.getHistoryRate(newDate)
+            }
         }
     },
     computed: {
